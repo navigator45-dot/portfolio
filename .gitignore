@@ -1,11 +1,11 @@
-   # Python
-   .venv/
-   __pycache__/
-   *.pyc
+# Python
+.venv/
+__pycache__/
+*.pyc
 
-   # Секреты и локальные настройки
-   .env
+# Секреты и локальные настройки
+.env
 
-   # Мусор Windows
-   Thumbs.db
-   desktop.ini
+# Мусор Windows
+Thumbs.db
+desktop.ini
