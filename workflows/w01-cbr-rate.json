@@ -1,4 +1,5 @@
 {
+  "name": "Курс ЦБ утренний отчет",
   "nodes": [
     {
       "parameters": {
@@ -48,13 +49,13 @@
             {
               "id": "918156fe-b3ed-4507-b4b3-06100e04516f",
               "name": "report",
-              "value": "=   Курс ЦБ на {{ $json.Date.toDateTime().format('dd.MM.yyyy') }}: доллар {{ $json.Valute.USD.Value.round(2) }} ₽, евро {{ $json.Valute.EUR.Value.round(2) }} ₽, юань {{ $json.Valute.CNY.Value.round(2) }} ₽.",
+              "value": "=Курс ЦБ на {{ $json.Date.toDateTime().format('dd.MM.yyyy') }}: доллар {{ $json.Valute.USD.Value.round(2) }} ₽, евро {{ $json.Valute.EUR.Value.round(2) }} ₽, юань {{ $json.Valute.CNY.Value.round(2) }} ₽.",
               "type": "string"
             },
             {
               "id": "4267bbb9-79ee-403d-a53f-78685e6e4e92",
               "name": "change_usd",
-              "value": "=     {{ ($('Получить курс').item.json.Valute.USD.Value - $('Получить курс').item.json.Valute.USD.Previous).round(2) }}",
+              "value": "={{ ($('Получить курс').item.json.Valute.USD.Value - $('Получить курс').item.json.Valute.USD.Previous).round(2) }}",
               "type": "string"
             }
           ]
@@ -71,6 +72,7 @@
       "name": "Текст отчета"
     }
   ],
+  "pinData": {},
   "connections": {
     "Каждый день в 9:00": {
       "main": [
@@ -95,8 +97,16 @@
       ]
     }
   },
-  "pinData": {},
+  "active": true,
+  "settings": {
+    "executionOrder": "v1",
+    "binaryMode": "separate"
+  },
+  "versionId": "1cb4d74a-526c-4cc2-8a3b-f67ba0211d16",
   "meta": {
     "instanceId": "4c1309efc7ddebf84ae56be02a3b592744fbbed875e38df9073e6fff95707287"
-  }
+  },
+  "nodeGroups": [],
+  "id": "x72XS0SOaTeZcgW9",
+  "tags": []
 }
