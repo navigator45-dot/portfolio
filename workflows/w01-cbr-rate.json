@@ -1,0 +1,102 @@
+{
+  "nodes": [
+    {
+      "parameters": {
+        "rule": {
+          "interval": [
+            {
+              "triggerAtHour": 9
+            }
+          ]
+        }
+      },
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "typeVersion": 1.4,
+      "position": [
+        -560,
+        -208
+      ],
+      "id": "d2e3345a-5e15-4476-a346-bc4d2f552590",
+      "name": "Каждый день в 9:00"
+    },
+    {
+      "parameters": {
+        "url": "https://www.cbr-xml-daily.ru/daily_json.js",
+        "options": {
+          "response": {
+            "response": {
+              "responseFormat": "json"
+            }
+          }
+        }
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.5,
+      "position": [
+        -384,
+        -208
+      ],
+      "id": "3778a862-e1da-4104-90ad-a3c4ece8e9a7",
+      "name": "Получить курс",
+      "notesInFlow": true,
+      "notes": "Источник: cbr-xml-daily.ru, без ключа. Курс за Nominal единиц."
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "918156fe-b3ed-4507-b4b3-06100e04516f",
+              "name": "report",
+              "value": "=   Курс ЦБ на {{ $json.Date.toDateTime().format('dd.MM.yyyy') }}: доллар {{ $json.Valute.USD.Value.round(2) }} ₽, евро {{ $json.Valute.EUR.Value.round(2) }} ₽, юань {{ $json.Valute.CNY.Value.round(2) }} ₽.",
+              "type": "string"
+            },
+            {
+              "id": "4267bbb9-79ee-403d-a53f-78685e6e4e92",
+              "name": "change_usd",
+              "value": "=     {{ ($('Получить курс').item.json.Valute.USD.Value - $('Получить курс').item.json.Valute.USD.Previous).round(2) }}",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.5,
+      "position": [
+        -208,
+        -208
+      ],
+      "id": "c6adc2df-c3cb-471a-b491-ef0fb3051870",
+      "name": "Текст отчета"
+    }
+  ],
+  "connections": {
+    "Каждый день в 9:00": {
+      "main": [
+        [
+          {
+            "node": "Получить курс",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Получить курс": {
+      "main": [
+        [
+          {
+            "node": "Текст отчета",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "pinData": {},
+  "meta": {
+    "instanceId": "4c1309efc7ddebf84ae56be02a3b592744fbbed875e38df9073e6fff95707287"
+  }
+}
